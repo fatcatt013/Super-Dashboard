@@ -16,11 +16,11 @@
       routerLinkActive="active"
     >
       <div>
-        <i class="fas fa-cog"></i><span class="ms-2" *ngIf="!isCollapsed">Dashboard</span>
+        <i class="fas fa-cog"></i><span class="ms-2" *ngIf="!isCollapsed">Settings</span>
       </div>
     </a>
   </div>
-  <div (click)="toggleSidebar()">
+  <div (click)="toggleCollapse()" tabindex="0">
     <div *ngIf="isCollapsed" class="btn toggle-btn">
       <i class="fas fa-chevron-double-right"></i>
     </div>

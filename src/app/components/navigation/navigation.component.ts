@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-navigation',
@@ -6,9 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent {
-  isCollapsed = false;
+  @Input() isCollapsed = false;
+  @Output() collapseChange = new EventEmitter();
 
-  toggleSidebar(): void {
+  toggleCollapse(): void {
     this.isCollapsed = !this.isCollapsed;
+    this.collapseChange.emit(this.isCollapsed);
   }
 }

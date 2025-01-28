@@ -1,5 +1,8 @@
 <div class="app-wrapper">
-  <app-navigation></app-navigation>
+  <app-navigation
+  [isCollapsed]="isCollapsed"
+  (collapseChange)="handleCollapseChange($event)"
+></app-navigation>
   <div class="content" [class.collapsed]="isCollapsed">
     <router-outlet></router-outlet>
   </div>

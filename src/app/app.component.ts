@@ -7,5 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Super-Dashboard';
-  isCollapsed = true;
+  isCollapsed = false;
+
+  handleCollapseChange(isCollapsed: boolean): void {
+    this.isCollapsed = isCollapsed;
+  }
 }
