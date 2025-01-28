@@ -1,0 +1,9 @@
+.content {
+  margin-left: 250px;
+  padding: 1rem;
+  transition: margin-left 0.3s ease;
+
+  &.collapsed {
+    margin-left: 80px;
+  }
+}

@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // Redirect from "" to "/dashboard"
-  { path: 'dashboard', component: DashboardComponent }, // Route to DashboardComponent
-  { path: '**', redirectTo: '/dashboard' }, // Optional: Catch-all route for undefined paths
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'settings', component: SettingsComponent },
+  { path: '**', redirectTo: '/dashboard' },
 ];
 
 @NgModule({

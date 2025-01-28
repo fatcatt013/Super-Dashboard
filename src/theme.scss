@@ -1,0 +1,40 @@
+// Color Scheme
+$primary-color: hsl(232, 75%, 95%);
+$primary-color-light: hsla(232, 75%, 90%, 0.62);
+$primary-color-lighter: hsla(232, 75%, 90%, 0.32);
+$primary-color-lightest: hsla(232, 75%, 90%, 0.12);
+
+$primary-fg-color: #4051b5;
+$primary-fg-color-light: #5d6cc0;
+$primary-fg-color-dark: #303fa1;
+$primary-bg-color: #fff;
+$primary-bg-color-light: #ffffffb3;
+
+$background-color: hsl(232, 15%, 21%);
+$background-color-light: hsla(232, 15%, 21%, 0.54);
+$background-color-lighter: hsla(232, 15%, 21%, 0.26);
+$background-color-lightest: hsla(232, 15%, 21%, 0.07);
+
+$text-color: $primary-color;
+$secondary-text-color: $primary-color-light;
+$muted-text-color: $primary-color-lightest;
+
+$code-text-color: hsl(232, 18%, 86%);
+$code-background-color: hsl(232, 15%, 15%);
+$highlight-color: #4287ff26;
+
+
+
+// Shadows
+$shadow-light: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.3), 0 0 0.05rem rgba(0, 0, 0, 0.1);
+$shadow-medium: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.5), 0 0 0.05rem rgba(0, 0, 0, 0.4);
+
+// General Theme
+body {
+  background-color: $background-color;
+  color: $text-color;
+}
+
+a {
+  color: $primary-color;
+}

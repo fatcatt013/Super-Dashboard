@@ -1,1 +1,31 @@
-<p>navigation works!</p>
+<div class="sidebar" [class.collapsed]="isCollapsed">
+  <div class="nav-items">
+    <a
+      class="nav-link"
+      routerLink="/dashboard"
+      routerLinkActive="active"
+    >
+      <div>
+        <i class="fas fa-columns"></i><span class="ms-2" *ngIf="!isCollapsed">Dashboard</span>
+      </div>
+
+    </a>
+    <a
+      class="nav-link"
+      routerLink="/settings"
+      routerLinkActive="active"
+    >
+      <div>
+        <i class="fas fa-cog"></i><span class="ms-2" *ngIf="!isCollapsed">Dashboard</span>
+      </div>
+    </a>
+  </div>
+  <div (click)="toggleSidebar()">
+    <div *ngIf="isCollapsed" class="btn toggle-btn">
+      <i class="fas fa-chevron-double-right"></i>
+    </div>
+    <div *ngIf="!isCollapsed" class="btn toggle-btn fs-14">
+      <i class="fas fa-chevron-double-left"></i>
+    </div>
+  </div>
+</div>
