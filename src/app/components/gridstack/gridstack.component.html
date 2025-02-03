@@ -1,8 +1,8 @@
 <div class="controls">
-  <button class="btn btn-primary" (click)="addNewWidget()">Add Widget</button>
-  <button class="btn btn-info" (click)="saveLayout()">Save Layout</button>
-  <button class="btn btn-info" (click)="loadLayout()">Load Layout</button>
-  <button class="btn btn-danger" (click)="deleteAllWidgets()">Delete All</button>
+  <button class="btn btn-primary" (click)="handleAddWidget()">Add Widget</button>
+  <!-- <button class="btn btn-info" (click)="gridStackService.saveLayout()">Save Layout</button>
+  <button class="btn btn-info" (click)="gridStackService.loadLayout()">Load Layout</button> -->
+  <button class="btn btn-danger" (click)="gridStackService.deleteAllWidgets()">Delete All</button>
   <!-- <select class="btn btn-info" (change)="changeColumn($event)">
     <option value="6">6 Columns</option>
     <option value="12" selected>12 Columns</option>
@@ -10,4 +10,13 @@
   </select> -->
 </div>
 
-<div #gridContainer class="grid-stack"></div>
+<div #gridContainer class="grid-stack">
+  <div *ngFor="let widget of widgets" class="grid-stack-item"
+       [attr.gs-x]="widget.x" [attr.gs-y]="widget.y"
+       [attr.gs-w]="widget.w" [attr.gs-h]="widget.h"
+       [attr.data-widget-id]="widget.id">
+    <!-- The widget container component is responsible for rendering dynamic Angular content.
+         It receives the widget object (type and data) so it can load the appropriate template. -->
+    <app-widget-container [widget]="widget"></app-widget-container>
+  </div>
+</div>

@@ -1,148 +1,53 @@
-import { Component, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { GridStack, GridStackNode, GridStackOptions, GridStackWidget } from 'gridstack';
+import { Component, AfterViewInit, ViewChild, ElementRef, OnDestroy, AfterViewChecked } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { GridstackService } from 'src/app/services/gridstack.service';
+import { IGenericWidget, EPossibleWidgetNames } from 'src/app/store/interfaces/widget.interface';
 
 @Component({
   selector: 'app-gridstack',
   templateUrl: './gridstack.component.html',
   styleUrls: ['./gridstack.component.scss']
 })
-export class GridstackComponent implements AfterViewInit, OnDestroy {
-  @ViewChild('gridContainer') gridContainer!: ElementRef<HTMLDivElement>;
-  private grid?: GridStack;
-  private savedLayout: GridStackWidget[] = [];
+export class GridstackComponent implements AfterViewInit, AfterViewChecked, OnDestroy {
+  @ViewChild('gridContainer', { static: true }) gridContainer!: ElementRef<HTMLDivElement>;
+  widgets: IGenericWidget[] = [];
+  private widgetsSubscription!: Subscription;
+  // A flag to mark that new grid items have been rendered
+  private hasNewWidgets = false;
 
-  // Grid options for v11.3.0 – note that 'el' is no longer valid in GridStackOptions.
-  private gridOptions: GridStackOptions = {
-    column: 12,
-    cellHeight: 100,
-    margin: 10,
-    minRow: 1,
-    float: true,
-    animate: true,
-    disableDrag: false,
-    disableResize: false,
-    acceptWidgets: '.grid-stack-item',
-    removable: '#trash',
-    styleInHead: true,
-    draggable: {
-      handle: '.grid-stack-item-content',
-      scroll: true,
-      appendTo: 'body'
-    }
-  };
+  constructor(public gridStackService: GridstackService) {}
 
   ngAfterViewInit(): void {
-    this.initializeGrid();
+    // Initialize Gridstack on the container element.
+    this.gridStackService.initializeGrid(this.gridContainer);
+
+    // Subscribe to the widget store (our single source of truth).
+    this.widgetsSubscription = this.gridStackService.widgets$.subscribe((widgets) => {
+      this.widgets = widgets;
+      // Mark that new widgets are in the view; we'll enhance them shortly.
+      this.hasNewWidgets = true;
+    });
+  }
+
+  ngAfterViewChecked(): void {
+    // After view update, if there are new grid items, call grid.makeWidget on each to enable dragging/resizing.
+    if (this.hasNewWidgets && this.gridStackService.getGrid()) {
+      const containerEl = this.gridContainer.nativeElement;
+      const items = containerEl.querySelectorAll('.grid-stack-item');
+      items.forEach(item => {
+        this.gridStackService.getGrid()?.makeWidget(item as HTMLElement);
+      });
+      this.hasNewWidgets = false;
+    }
   }
 
   ngOnDestroy(): void {
-    this.grid?.destroy();
+    this.widgetsSubscription.unsubscribe();
+    this.gridStackService.collectGarbage();
   }
 
-  private initializeGrid(): void {
-    this.grid = GridStack.init(this.gridOptions, this.gridContainer.nativeElement);
-    this.setupEventHandlers();
-  }
-
-  private setupEventHandlers(): void {
-    if (!this.grid) return;
-
-    this.grid.on('added', (event, nodes) =>
-      this.onItemAdded(nodes as GridStackNode[]));
-
-    this.grid.on('removed', (event, nodes) =>
-      this.onItemRemoved(nodes as GridStackNode[]));
-
-    this.grid.on('change', (event, nodes) =>
-      this.onItemChanged(nodes as GridStackNode[]));
-
-    this.grid.on('dragstart', (event, element) =>
-      this.onDragStart(element as HTMLElement));
-
-    this.grid.on('dragstop', (event, element) =>
-      this.onDragStop(element as HTMLElement));
-  }
-
-  addNewWidget(): void {
-    if (!this.grid) return;
-
-    const widgetCount = this.grid.engine.nodes.length;
-    const widget: GridStackWidget = {
-      x: Math.round(Math.random() * 4),
-      y: Math.round(Math.random() * 4),
-      w: Math.max(2, Math.round(Math.random() * 4)),
-      h: Math.max(2, Math.round(Math.random() * 2)),
-      content: this.createWidgetContent(widgetCount + 1)
-    };
-
-    // Add the widget (the widget object now uses the same type as expected)
-    this.grid.addWidget(widget);
-  }
-
-  private createWidgetContent(index: number): string {
-    const div = document.createElement('div');
-    div.className = 'grid-stack-item-content';
-    div.textContent = `New Widget ${index}`;
-    return div.innerHTML;
-  }
-
-  saveLayout(): void {
-    if (!this.grid) return;
-
-    // You might choose to deep clone here if needed.
-    this.savedLayout = this.grid.save() as GridStackWidget[];
-    console.log('Layout saved:', this.savedLayout);
-  }
-
-  loadLayout(): void {
-    if (!this.grid || this.savedLayout.length === 0) return;
-
-    this.grid?.removeAll();
-
-    // Optionally deep-clone the saved layout to remove unwanted prototype properties:
-    const cleanLayout = JSON.parse(JSON.stringify(this.savedLayout));
-    this.grid.load(cleanLayout);
-    console.log('Layout loaded');
-  }
-
-  deleteAllWidgets(): void {
-    this.grid?.removeAll();
-  }
-
-  changeColumn(event: Event): void {
-    const select = event.target as HTMLSelectElement;
-    this.grid?.column(parseInt(select.value, 10));
-  }
-
-  // Event handlers – converting GridStackNode array to an array of widget definitions.
-  private onItemAdded(nodes: GridStackNode[]): void {
-    console.log('Items added:', this.nodesToWidgets(nodes));
-  }
-
-  private onItemRemoved(nodes: GridStackNode[]): void {
-    console.log('Items removed:', this.nodesToWidgets(nodes));
-  }
-
-  private onItemChanged(nodes: GridStackNode[]): void {
-    console.log('Items changed:', this.nodesToWidgets(nodes));
-  }
-
-  private nodesToWidgets(nodes: GridStackNode[]): GridStackWidget[] {
-    return nodes.map(node => ({
-      x: node.x,
-      y: node.y,
-      w: node.w,
-      h: node.h,
-      id: node.id,
-      content: node.el?.querySelector('.grid-stack-item-content')?.outerHTML
-    }));
-  }
-
-  private onDragStart(element: HTMLElement): void {
-    element.classList.add('dragging');
-  }
-
-  private onDragStop(element: HTMLElement): void {
-    element.classList.remove('dragging');
+  handleAddWidget(): void {
+    // Example: add a CLOCK_WIDGET with no extra data.
+    this.gridStackService.addNewWidget(EPossibleWidgetNames.CLOCK_WIDGET, null);
   }
 }
