@@ -1,6 +1,6 @@
 import { Injectable, ElementRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { GridStack, GridStackNode, GridStackOptions } from 'gridstack';
+import { GridStack, GridStackOptions } from 'gridstack';
 import { EPossibleWidgetNames, IGenericWidget, TGenericWidgetData } from '../store/interfaces/widget.interface';
 
 @Injectable({
