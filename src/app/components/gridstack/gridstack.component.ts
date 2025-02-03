@@ -97,6 +97,8 @@ export class GridstackComponent implements AfterViewInit, OnDestroy {
   loadLayout(): void {
     if (!this.grid || this.savedLayout.length === 0) return;
 
+    this.grid?.removeAll();
+
     // Optionally deep-clone the saved layout to remove unwanted prototype properties:
     const cleanLayout = JSON.parse(JSON.stringify(this.savedLayout));
     this.grid.load(cleanLayout);
