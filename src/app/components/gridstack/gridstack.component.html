@@ -1,1 +1,13 @@
-<gridstack [options]="gridOptions"></gridstack>
+<div class="controls">
+  <button class="btn btn-primary" (click)="addNewWidget()">Add Widget</button>
+  <button class="btn btn-info" (click)="saveLayout()">Save Layout</button>
+  <button class="btn btn-info" (click)="loadLayout()">Load Layout</button>
+  <button class="btn btn-danger" (click)="deleteAllWidgets()">Delete All</button>
+  <!-- <select class="btn btn-info" (change)="changeColumn($event)">
+    <option value="6">6 Columns</option>
+    <option value="12" selected>12 Columns</option>
+    <option value="18">18 Columns</option>
+  </select> -->
+</div>
+
+<div #gridContainer class="grid-stack"></div>

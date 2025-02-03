@@ -1,10 +1,24 @@
-@import "gridstack/dist/gridstack.min.css";
-@import "gridstack/dist/gridstack-extra.min.css";
+@import '../../../theme.scss';
 
-.grid-stack {
-  background: #fafad2;
+:host ::ng-deep .grid-stack {
+  border: 1px solid #ccc;
+  margin: 20px;
+  min-height: 800px;
 }
-.grid-stack-item-content {
+
+:host ::ng-deep .grid-stack-item {
+  background-color: $background-color-lightest;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+:host ::ng-deep .grid-stack-item-content {
+  padding: 20px;
   text-align: center;
-  background-color: #18bc9c;
+}
+
+:host ::ng-deep .controls {
+  padding: 20px;
+  display: flex;
+  gap: 10px;
 }
