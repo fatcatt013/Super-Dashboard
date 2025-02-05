@@ -15,3 +15,10 @@ export interface IGenericWidget extends GridStackWidget{
   data: TGenericWidgetData;
   type: EPossibleWidgetNames
 }
+
+export interface IWidgetBoundaries {
+  maxW?: number;
+  minW?: number;
+  maxH?: number;
+  minH?: number;
+}

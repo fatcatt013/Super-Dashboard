@@ -2,6 +2,7 @@ import { Injectable, ElementRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { GridStack, GridStackOptions } from 'gridstack';
 import { EPossibleWidgetNames, IGenericWidget, TGenericWidgetData } from '../store/interfaces/widget.interface';
+import { WidgetRegistryService } from './widget-registry.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,8 @@ export class GridstackService {
   // Our Angular store: the single source of truth for widget definitions
   private widgetsSubject = new BehaviorSubject<IGenericWidget[]>([]);
   public widgets$ = this.widgetsSubject.asObservable();
+
+  constructor(private registry: WidgetRegistryService){}
 
   lastId = '0';
 
@@ -69,13 +72,21 @@ export class GridstackService {
    */
   addNewWidget(type: EPossibleWidgetNames, data: TGenericWidgetData): void {
     const current = this.widgetsSubject.getValue();
+    const boundaries = this.registry.getWidgetBoundaries(type);
     // Generate a unique id (for demo purposes, use Date.now())
     const newWidget: IGenericWidget = {
       id: this.lastId.toString(),
       x: Math.round(Math.random() * 4),
       y: Math.round(Math.random() * 4),
-      w: Math.max(2, Math.round(Math.random() * 4)),
-      h: Math.max(2, Math.round(Math.random() * 2)),
+      w: 5,
+      h: 10,
+
+      //boundaries
+      maxW: boundaries?.maxW,
+      minW: boundaries?.minW,
+      maxH: boundaries?.maxH,
+      minH: boundaries?.minH,
+
       // content will be rendered by an Angular component inside the grid item
       type: type,
       data: data

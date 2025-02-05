@@ -1,5 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
+import { RedmineService } from 'src/app/services/redmine.service';
 
 @Component({
   selector: 'app-clock-widget',
@@ -17,6 +18,8 @@ export class ClockWidgetComponent implements OnDestroy {
   startTime!: Date;
   // A log of time entries
   timeEntries: { start: Date, end: Date, duration: number }[] = [];
+
+  constructor(private readonly redmine: RedmineService){}
 
 
   ngOnDestroy(): void {
