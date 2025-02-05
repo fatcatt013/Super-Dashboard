@@ -1,0 +1,37 @@
+@import "../../../../theme.scss";
+
+.clockify-container {
+  max-width: 400px;
+  margin: 1rem auto;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.timer-display {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.timer-controls button {
+  margin: 0 0.5rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 1rem;
+}
+
+.time-entries {
+  margin-top: 0.5rem;
+  text-align: left;
+}
+
+.time-entries ul {
+  list-style: none;
+  padding: 0;
+}
+
+.time-entries li {
+  background: $background-color-lightest;
+  margin-bottom: 0.25rem;
+  padding: 0.25rem;
+  border-radius: 4px;
+  text-align: center;
+}

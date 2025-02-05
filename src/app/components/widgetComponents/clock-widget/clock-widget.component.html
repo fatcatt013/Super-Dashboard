@@ -1,1 +1,18 @@
-<p>clock-widget works!</p>
+<div class="clockify-container">
+  <div class="timer-display">
+    <span>{{ formatTime(elapsedTime) }}</span>
+  </div>
+  <div class="timer-controls">
+    <button class='btn btn-primary' (click)="startTimer()" [disabled]="isRunning">Start</button>
+    <button class='btn btn-danger' (click)="stopTimer()" [disabled]="!isRunning">Stop</button>
+    <button class='btn btn-info' (click)="resetTimer()" [disabled]="isRunning">Reset</button>
+  </div>
+  <div class="time-entries">
+    <ul>
+      <li *ngFor="let entry of timeEntries">
+        {{ entry.start | date:'shortTime' }} - {{ entry.end | date:'shortTime' }}
+        ({{ formatTime(entry.duration) }})
+      </li>
+    </ul>
+  </div>
+</div>

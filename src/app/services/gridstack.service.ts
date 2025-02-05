@@ -18,8 +18,8 @@ export class GridstackService {
   // Default gridstack options
   private gridOptions: GridStackOptions = {
     column: 12,
-    cellHeight: 100,
-    margin: 10,
+    cellHeight: 20,
+    margin: 1,
     minRow: 1,
     float: true,
     animate: true,
@@ -87,11 +87,6 @@ export class GridstackService {
   deleteAllWidgets(): void {
     this.grid?.removeAll();
     this.widgetsSubject.next([]);
-  }
-
-  changeColumn(event: Event): void {
-    const select = event.target as HTMLSelectElement;
-    this.grid?.column(parseInt(select.value, 10));
   }
 
   /**
