@@ -1,3 +1,4 @@
 {
   "REDMINE_API_KEY": "",
+  "REDMINE_BASE_URL": "https://redmine.inuits.eu/"
 }

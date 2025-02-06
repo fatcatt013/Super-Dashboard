@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { IBaseConfig } from '../interfaces/config.interface';
 
 export enum ConfigActionTypes {
   FETCH_BASE_CONFIG = '[Config] Fetch base config',
@@ -13,10 +14,11 @@ export const fetchBaseConfig = createAction(
 
 export const fetchBaseConfigSuccess = createAction(
   ConfigActionTypes.FETCH_BASE_CONFIG_SUCCESS,
-  props<{ data: unknown }>()
+  props<{ data: IBaseConfig }>()
 );
 
 export const fetchBaseConfigFailure = createAction(
   ConfigActionTypes.FETCH_BASE_CONFIG_FAILURE,
-  props<{ error: unknown }>()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  props<{ error: any }>()
 );

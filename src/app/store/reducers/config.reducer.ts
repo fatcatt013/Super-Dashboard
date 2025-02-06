@@ -1,15 +1,11 @@
 import { createReducer, on } from "@ngrx/store";
 import { fetchBaseConfig, fetchBaseConfigFailure, fetchBaseConfigSuccess } from "../actions/config.actions";
+import { IConfigState } from "../interfaces/config.interface";
 
-export interface IConfigState {
-  loading: boolean;
-  config: unknown;
-  baseConfigLoaded: boolean;
-}
 
 const initialState: IConfigState = {
   loading: false,
-  config: {},
+  config: null,
   baseConfigLoaded: false
 }
 
@@ -36,7 +32,6 @@ export const configReducer = createReducer(
     (state): IConfigState => ({
       ...state,
       loading: false,
-
     })
   ),
 );

@@ -42,7 +42,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: false,
-      name: 'My NgRx Store'
     }),
   ],
   providers: [ApiService, HttpClient],
