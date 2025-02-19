@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { Observable, take } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectConfigRedmineUrl } from '../store/selectors/config.selectors';
 
@@ -18,7 +18,7 @@ export class RedmineService {
   }
 
   constructor(private _api: ApiService, private _store: Store) {
-    this._store.select(selectConfigRedmineUrl).pipe(take(1)).subscribe(url => {
+    this._store.select(selectConfigRedmineUrl).pipe().subscribe(url => {
       this._baseUrl = url as string;
     });
   }
@@ -31,7 +31,7 @@ export class RedmineService {
     switch (method){
       case 'GET':
         return this._api.get<T>({
-          path: this._baseUrl,
+          path: `${this._baseUrl}issues/`,
           params: params,
           body: body
         }, this._headers);
