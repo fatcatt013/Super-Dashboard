@@ -10,7 +10,7 @@ export const selectConfig = createSelector(
   (state) => state.config
 );
 
-export const selectConfigRedmineUrl = createSelector(
+export const selectApiBaseUrl = createSelector(
   selectConfigState,
-  (state) => state.config?.REDMINE_BASE_URL
+  (state) => state.config?.API_BASE_URL
 );

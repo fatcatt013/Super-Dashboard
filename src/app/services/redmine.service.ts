@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { selectConfigRedmineUrl } from '../store/selectors/config.selectors';
+import { selectApiBaseUrl } from '../store/selectors/config.selectors';
 
 export interface IRedmineIssueList {
   data: string
@@ -18,13 +18,13 @@ export class RedmineService {
   }
 
   constructor(private _api: ApiService, private _store: Store) {
-    this._store.select(selectConfigRedmineUrl).pipe().subscribe(url => {
+    this._store.select(selectApiBaseUrl).pipe().subscribe(url => {
       this._baseUrl = url as string;
     });
   }
 
   public getMyIssues(): Observable<IRedmineIssueList>{
-    return this._useIssuesEndpoint<IRedmineIssueList>('GET', {"assigned_to_id": "me"})
+    return this._useIssuesEndpoint<IRedmineIssueList>('GET', {params: {"assigned_to_id": "me"}})
   }
 
   private _useIssuesEndpoint<T>(method: 'GET' | 'POST', params?: Record<string, unknown>, body?: Record<string, unknown>){

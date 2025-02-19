@@ -1,6 +1,5 @@
 export interface IBaseConfig {
-  "REDMINE_API_KEY": string,
-  "REDMINE_BASE_URL": string
+  "API_BASE_URL": string
 }
 
 export interface IConfigState {
