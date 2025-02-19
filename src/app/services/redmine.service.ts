@@ -3,10 +3,7 @@ import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectApiBaseUrl } from '../store/selectors/config.selectors';
-
-export interface IRedmineIssueList {
-  data: string
-}
+import { IGetMyIssuesResponse } from '../store/interfaces/redmine.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +20,8 @@ export class RedmineService {
     });
   }
 
-  public getMyIssues(): Observable<IRedmineIssueList>{
-    return this._useIssuesEndpoint<IRedmineIssueList>('GET', {params: {"assigned_to_id": "me"}})
+  public getMyIssues(): Observable<IGetMyIssuesResponse>{
+    return this._useIssuesEndpoint<IGetMyIssuesResponse>('GET', {params: {"assigned_to_id": "me"}})
   }
 
   private _useIssuesEndpoint<T>(method: 'GET' | 'POST', params?: Record<string, unknown>, body?: Record<string, unknown>){

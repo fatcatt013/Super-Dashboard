@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType,} from "@ngrx/effects";
 import { catchError, map, mergeMap, of } from "rxjs";
-import { IRedmineIssueList, RedmineService } from "src/app/services/redmine.service";
+import { RedmineService } from "src/app/services/redmine.service";
 import { getMyIssues, getMyIssuesSuccess, getMyIssuesFailure } from "../actions/redmine.actions";
+import { IGetMyIssuesResponse } from "../interfaces/redmine.interface";
 
 @Injectable()
 export class RedmineEffects {
@@ -16,7 +17,7 @@ export class RedmineEffects {
       ofType(getMyIssues),
       mergeMap(() => {
         return this.redmineService.getMyIssues().pipe(
-          map((res: IRedmineIssueList) =>
+          map((res: IGetMyIssuesResponse) =>
             getMyIssuesSuccess({data: res})
           ),
           catchError((err: unknown) => of(getMyIssuesFailure({ error: err })))

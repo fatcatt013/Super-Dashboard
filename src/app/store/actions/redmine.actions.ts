@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IRedmineIssueList } from 'src/app/services/redmine.service';
+import { IGetMyIssuesResponse } from '../interfaces/redmine.interface';
 
 export enum RedmineActionTypes {
   GET_MY_ISSUES = '[Redmine] Get my issues',
@@ -14,7 +14,7 @@ export const getMyIssues = createAction(
 
 export const getMyIssuesSuccess = createAction(
   RedmineActionTypes.GET_MY_ISSUES_SUCCESS,
-  props<{ data: IRedmineIssueList }>()
+  props<{ data: IGetMyIssuesResponse }>()
 );
 
 export const getMyIssuesFailure = createAction(

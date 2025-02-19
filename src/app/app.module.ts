@@ -19,6 +19,7 @@ import { ApiService } from './services/api.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { RedmineEffects } from './store/effects/redmine.effects';
+import { redmineReducer } from './store/reducers/redmine.reducer';
 
 
 @NgModule({
@@ -38,7 +39,7 @@ import { RedmineEffects } from './store/effects/redmine.effects';
     NgbModule,
     AppRoutingModule,
     HttpClientModule,
-    StoreModule.forRoot({appConfig: configReducer}),
+    StoreModule.forRoot({appConfig: configReducer, redmine: redmineReducer}),
     EffectsModule.forRoot([ConfigEffects, RedmineEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
