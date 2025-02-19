@@ -4,7 +4,8 @@ import { getMyIssuesSuccess } from "../actions/redmine.actions";
 
 
 const initialState: IRedmineState = {
-  myIssues: []
+  myIssues: [],
+  myRedmineId: null
 }
 
 export const redmineReducer = createReducer(
@@ -13,7 +14,8 @@ export const redmineReducer = createReducer(
     getMyIssuesSuccess,
     (state, {data}): IRedmineState => ({
       ...state,
-      myIssues: data.issues
+      myIssues: data.issues,
+      myRedmineId: data.issues[0].assigned_to.id ?? 0
     })
   ),
 );

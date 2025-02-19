@@ -20,4 +20,5 @@ export interface IRedmineIssue {
 
 export interface IRedmineState {
   myIssues: IRedmineIssue[];
+  myRedmineId: number | null;
 }

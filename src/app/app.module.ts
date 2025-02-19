@@ -20,6 +20,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { RedmineEffects } from './store/effects/redmine.effects';
 import { redmineReducer } from './store/reducers/redmine.reducer';
+import { RedmineMyIssuesWidgetComponent } from './components/widgetComponents/redmine-my-issues-widget/redmine-my-issues-widget.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { redmineReducer } from './store/reducers/redmine.reducer';
     ClockWidgetComponent,
     WidgetContainerComponent,
     DynamicWidgetHostDirective,
+    RedmineMyIssuesWidgetComponent,
   ],
   imports: [
     BrowserModule,
