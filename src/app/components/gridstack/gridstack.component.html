@@ -1,5 +1,18 @@
 <div class="controls">
-  <button class="btn btn-primary" (click)="handleAddWidget()">Add Widget</button>
+  <div class="dropdown">
+    <button class="btn btn-primary" (click)="toggleDropdown()">
+      Add Widget
+    </button>
+    <div class="dropdown-menu" [class.show]="showDropdown">
+      <button
+        class="dropdown-item"
+        *ngFor="let widget of widgetRegistry.getRegistryKeys()"
+        (click)="handleAddWidget(widget)">
+        {{ widgetRegistry.getRegistryKeyLabel(widget) }}
+      </button>
+    </div>
+  </div>
+
   <!-- <button class="btn btn-info" (click)="gridStackService.saveLayout()">Save Layout</button>
   <button class="btn btn-info" (click)="gridStackService.loadLayout()">Load Layout</button> -->
   <button class="btn btn-danger" (click)="gridStackService.deleteAllWidgets()">Delete All</button>

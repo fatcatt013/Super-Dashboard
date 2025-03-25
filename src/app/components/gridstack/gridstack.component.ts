@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, OnDestroy, AfterViewChecked } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GridstackService } from 'src/app/services/gridstack.service';
+import { WidgetRegistryService } from 'src/app/services/widget-registry.service';
 import { IGenericWidget, EPossibleWidgetNames } from 'src/app/store/interfaces/widget.interface';
 
 @Component({
@@ -12,10 +13,14 @@ export class GridstackComponent implements AfterViewInit, AfterViewChecked, OnDe
   @ViewChild('gridContainer', { static: true }) gridContainer!: ElementRef<HTMLDivElement>;
   widgets: IGenericWidget[] = [];
   private widgetsSubscription!: Subscription;
-  // A flag to mark that new grid items have been rendered
   private hasNewWidgets = false;
+  showDropdown = false;
 
-  constructor(public gridStackService: GridstackService) {}
+  toggleDropdown(): void {
+    this.showDropdown = !this.showDropdown;
+  }
+
+  constructor(public gridStackService: GridstackService, public widgetRegistry: WidgetRegistryService) {}
 
   ngAfterViewInit(): void {
     // Initialize Gridstack on the container element.
@@ -46,8 +51,8 @@ export class GridstackComponent implements AfterViewInit, AfterViewChecked, OnDe
     this.gridStackService.collectGarbage();
   }
 
-  handleAddWidget(): void {
-    // Example: add a CLOCK_WIDGET with no extra data.
-    this.gridStackService.addNewWidget(EPossibleWidgetNames.CLOCK_WIDGET, null);
+  handleAddWidget(widget: EPossibleWidgetNames): void {
+    this.gridStackService.addNewWidget(widget, null);
+    this.showDropdown = false;
   }
 }

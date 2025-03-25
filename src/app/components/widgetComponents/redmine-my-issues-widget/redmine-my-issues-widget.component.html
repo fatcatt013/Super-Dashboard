@@ -1,0 +1,20 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Subject</th>
+      <th>Assigned To</th>
+      <th>Priority</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let issue of myIssues$ | async">
+      <td>{{ issue.id }}</td>
+      <td>{{ issue.subject }}</td>
+      <td>{{ issue.assigned_to.name }}</td>
+      <td>{{ issue.priority.name }}</td>
+      <td>{{ issue.status.name }}</td>
+    </tr>
+  </tbody>
+</table>
