@@ -21,6 +21,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { RedmineEffects } from './store/effects/redmine.effects';
 import { redmineReducer } from './store/reducers/redmine.reducer';
 import { RedmineMyIssuesWidgetComponent } from './components/widgetComponents/redmine-my-issues-widget/redmine-my-issues-widget.component';
+import { PlannerModule } from './planner/planner.module';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { RedmineMyIssuesWidgetComponent } from './components/widgetComponents/re
       maxAge: 25,
       logOnly: false,
     }),
+    PlannerModule
   ],
   providers: [ApiService, HttpClient],
   bootstrap: [AppComponent]

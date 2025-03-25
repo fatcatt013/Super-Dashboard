@@ -12,6 +12,16 @@
     </a>
     <a
       class="nav-link"
+      routerLink="/planner"
+      routerLinkActive="active"
+    >
+      <div>
+        <i class="fas fa-calendar"></i><span class="ms-2" *ngIf="!isCollapsed">Planner</span>
+      </div>
+
+    </a>
+    <a
+      class="nav-link"
       routerLink="/settings"
       routerLinkActive="active"
     >
