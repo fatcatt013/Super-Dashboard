@@ -1,23 +1,38 @@
+<!-- eslint-disable @angular-eslint/template/mouse-events-have-key-events -->
 <div class="container-fluid weekly-planner">
-  <!-- Header row for days -->
-  <div class="row">
-    <div class="col-1"></div>
-    <div *ngFor="let day of days" class="col day-header border">
-      {{ day }}
+  <!-- Sticky header container -->
+  <div class="sticky-header">
+    <div class="row">
+      <div class="col-1"></div> <!-- Empty cell for top-left corner -->
+      <div
+        *ngFor="let day of days; let dayIndex = index"
+        class="col day-header border"
+        [ngClass]="{'highlighted': hoveredDayIndex === dayIndex}">
+        {{ day }}
+      </div>
     </div>
   </div>
 
   <!-- Planner grid -->
   <div class="row">
+    <!-- Time column on the left -->
     <div class="col-1 time-column border">
-      <div *ngFor="let time of timeSlots" class="time-slot">
+      <div
+        *ngFor="let time of timeSlots; let timeIndex = index"
+        class="time-slot"
+        [ngClass]="{'highlighted': hoveredTimeIndex === timeIndex}">
         {{ time }}
       </div>
     </div>
 
-    <div *ngFor="let day of days" class="col">
+    <!-- Columns for each day -->
+    <div *ngFor="let day of days; let dayIndex = index" class="col">
       <div class="day-column">
-        <div *ngFor="let time of timeSlots" class="time-cell">
+        <div
+          *ngFor="let time of timeSlots; let timeIndex = index"
+          class="time-cell"
+          (mouseover)="setHover(dayIndex, timeIndex)"
+          (mouseleave)="clearHover()">
           <!-- Placeholder for future event entries -->
         </div>
       </div>

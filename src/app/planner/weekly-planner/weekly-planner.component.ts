@@ -7,13 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WeeklyPlannerComponent implements OnInit {
   days: string[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-
   timeSlots: string[] = [];
 
   slotInterval = 30;
   startHour = 0;
   endHour = 24;
 
+  // Track the hovered indices for day and time
+  hoveredDayIndex: number | null = null;
+  hoveredTimeIndex: number | null = null;
 
   ngOnInit(): void {
     this.generateTimeSlots();
@@ -29,5 +31,17 @@ export class WeeklyPlannerComponent implements OnInit {
       }
     }
     this.timeSlots = slots;
+  }
+
+  // When hovering over a cell, record its day and time indices
+  setHover(dayIndex: number, timeIndex: number): void {
+    this.hoveredDayIndex = dayIndex;
+    this.hoveredTimeIndex = timeIndex;
+  }
+
+  // Clear the hover state when the mouse leaves the cell
+  clearHover(): void {
+    this.hoveredDayIndex = null;
+    this.hoveredTimeIndex = null;
   }
 }

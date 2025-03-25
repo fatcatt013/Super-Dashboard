@@ -3,29 +3,35 @@
 .weekly-planner {
   background-color: $background-color;
 
-  // Sticky day header styling
-  .day-header {
-    background-color: $primary-bg-color-light; // Updated background color
-    padding: 10px;
-    border: 1px solid $background-color-light;
-    color: $primary-fg-color;
-    text-align: center;
+  // Sticky header container
+  .sticky-header {
     position: sticky;
     top: 0;
-    z-index: 10; // Ensures the header stays above other content
+    z-index: 20;
+    background-color: $background-color-lightest; // Updated header background color
   }
 
+  // Day header styling
+  .day-header {
+    padding: 10px;
+    border: 1px solid $background-color-light;
+    color: $primary-fg-color-light;
+    text-align: center;
+  }
+
+  // Time column styling
   .time-column {
     background-color: $background-color-lighter;
     padding: 0;
     .time-slot {
       font-size: 0.75rem;
       padding: 2px 5px;
-      color: $muted-text-color;
+      color: $primary-fg-color-light;
       border-bottom: 1px solid $background-color-light;
     }
   }
 
+  // Day columns styling
   .day-column {
     .time-cell {
       border: 1px solid $background-color-light;
@@ -36,5 +42,10 @@
         box-shadow: $shadow-light;
       }
     }
+  }
+
+  // Highlight style for hovered day header and time slot
+  .highlighted {
+    color: #fff !important;
   }
 }
