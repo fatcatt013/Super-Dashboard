@@ -5,12 +5,10 @@ import { IWeeklyPlannerEvent } from '../store/interfaces/weeklyPlanner.interface
   providedIn: 'root',
 })
 export class WeeklyPlannerService {
-  events: Array<IWeeklyPlannerEvent> = [];
+  events: IWeeklyPlannerEvent[] = [];
   slotInterval = 30;
   startHour = 0;
   endHour = 24;
-
-  constructor() {}
 
   init(data: { events: IWeeklyPlannerEvent[] }) {
     this.events = data.events;
@@ -29,17 +27,21 @@ export class WeeklyPlannerService {
     );
   }
 
-  getEventStyles(event: IWeeklyPlannerEvent): any {
+  getEventStyles(event: IWeeklyPlannerEvent): object {
     const startIndex = this.getTimeSlotIndex(event.startTime);
     const endIndex = this.getTimeSlotIndex(event.endTime);
-    const top = startIndex * 20; // 20px per time slot
+
+    // Use calculated height without -1 adjustment
+    const top = startIndex * 20;
     const height = (endIndex - startIndex) * 20;
 
     return {
       'top.px': top,
       'height.px': height,
       'background-color': event.color,
+      'font-size.px': 13,
       color: this.getContrastColor(event.color),
+      'z-index': 2, // Explicit z-index
     };
   }
 

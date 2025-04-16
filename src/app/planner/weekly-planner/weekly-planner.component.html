@@ -32,21 +32,27 @@
     <div *ngFor="let day of days; let dayIndex = index" class="col px-1">
       <!-- Inside your day-column div -->
       <div class="day-column">
+        <!-- Events FIRST in DOM -->
+        <div
+          *ngFor="let event of plannerService.getEventsForDay(day)"
+          class="event d-flex px-1"
+          [ngStyle]="plannerService.getEventStyles(event)"
+        >
+          <div class="w-100 d-flex justify-content-center pt-1">
+            {{ event.text }}
+          </div>
+          <div class="w-100 d-flex justify-content-center pt-1">
+            <span>{{ event.startTime }} - {{ event.endTime }}</span>
+          </div>
+        </div>
+
+        <!-- Time cells AFTER events -->
         <div
           *ngFor="let time of timeSlots; let timeIndex = index"
           class="time-cell"
           (mouseover)="setHover(dayIndex, timeIndex)"
           (mouseleave)="clearHover()"
         ></div>
-
-        <!-- Events -->
-        <div
-          *ngFor="let event of plannerService.getEventsForDay(day)"
-          class="event"
-          [ngStyle]="plannerService.getEventStyles(event)"
-        >
-          {{ event.text }}
-        </div>
       </div>
     </div>
   </div>

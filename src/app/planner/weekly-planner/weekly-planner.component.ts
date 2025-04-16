@@ -60,16 +60,10 @@ export class WeeklyPlannerComponent implements OnInit {
 
   generateTimeSlots(): void {
     const slots = [];
-    // Changed to h <= endHour to include final hour
-    for (
-      let h = this.plannerService.startHour;
-      h <= this.plannerService.endHour;
-      h++
-    ) {
-      // Handle last hour differently to avoid 24:30 etc.
-      const maxMinutes = h === this.plannerService.endHour ? 0 : 60;
-      for (let m = 0; m < maxMinutes; m += this.plannerService.slotInterval) {
-        const hourStr = (h === 24 ? 0 : h).toString().padStart(2, '0');
+    // Generate from 00:00 to 23:30
+    for (let h = 0; h < 24; h++) {
+      for (let m = 0; m < 60; m += this.plannerService.slotInterval) {
+        const hourStr = h.toString().padStart(2, '0');
         const minuteStr = m.toString().padStart(2, '0');
         slots.push(`${hourStr}:${minuteStr}`);
       }
